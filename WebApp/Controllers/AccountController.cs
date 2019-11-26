@@ -19,6 +19,27 @@ namespace WebApp.Controllers
 
         public object AuthManager { get; private set; }
 
+        public ActionResult UserMenuPartial()
+        {
+            string user = User.Identity.Name;
+
+            UserModel userDb = UserManager.Users.FirstOrDefault(m => m.UserName == user);
+
+            return PartialView("_UserMenuPartial", userDb);
+        }
+
+        public ActionResult UserProfile()
+        {
+            string user = User.Identity.Name;
+            UserModel userDb = UserManager.Users.FirstOrDefault(m => m.UserName == user);
+            if (userDb == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(userDb);
+        }
+
         public ActionResult Login(string returnUrl)
         {
             ViewBag.returnUrl = returnUrl;

@@ -34,14 +34,38 @@
                     </div>
                 </li>
             </ul>
+            
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
+            &nbsp;&nbsp;
+            <ul class="navbar-nav mr-auto">
+                @if (Request.IsAuthenticated)
+                {
+                    <li>
+                        @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "navbar-text", style = "text-decoration: none" })
+                    </li>
+                    <li class = "navbar-text">
+                        @Html.Action("UserMenuPartial", "Account")
+                    </li>
+                    @*<li>
+                <div class="col-1">
+                    @Html.Action("CartPartial", "Cart")
+                </div>
+            </li>*@
+                }
+                else
+                {
+                    <li>
 
-            <div class="col-1">
-                @Html.Action("CartPartial", "Cart")
-            </div>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Login", "Login", "Account", null, new { @class = "active", style = "text-decoration: none" })
+                    </li>
+
+                }
+            </ul>
 
         </div>
     </nav>
