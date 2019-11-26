@@ -157,6 +157,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -172,11 +173,13 @@
       <DependentUpon>201911251931323_DataMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Data\ShopCartDB.cs" />
     <Compile Include="Models\Data\ShopProductDB.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\Data\ShopCategoryDB.cs" />
+    <Compile Include="Models\Shop\ShopCartVM.cs" />
     <Compile Include="Models\Shop\ShopCategoryVM.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\Db.cs" />
@@ -265,6 +268,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cart\" />
     <Folder Include="Views\Roles\" />
   </ItemGroup>
   <ItemGroup>
