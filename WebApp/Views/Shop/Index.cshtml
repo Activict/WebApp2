@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WebApp.Models.Shop.ShopProductVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+    <h3>@ViewBag.Menu</h3> 
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShopCategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShopCategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShopCategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShopCategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "ProductEdit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "ProductDetails", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "ProductDelete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

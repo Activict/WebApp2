@@ -18,5 +18,8 @@ namespace WebApp.Models.Data
         public int ShopCategoryId { get; set; }
         public string ShopCategoryName { get; set; }
         public string ImageName { get; set; }
+
+        [ForeignKey("ShopCategoryId")]
+        public virtual ShopCategoryDB ShopCategory { get; set; }
     }
 }

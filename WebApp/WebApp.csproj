@@ -163,6 +163,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911242100320_InitialCreate.cs" />
+    <Compile Include="Migrations\201911242100320_InitialCreate.Designer.cs">
+      <DependentUpon>201911242100320_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911251931323_DataMigration.cs" />
+    <Compile Include="Migrations\201911251931323_DataMigration.Designer.cs">
+      <DependentUpon>201911251931323_DataMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Data\ShopProductDB.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
@@ -250,11 +259,13 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Shop\_CategoryPartial.cshtml" />
+    <Content Include="Views\Shop\ProductEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Roles\" />
-    <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -266,6 +277,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201911242100320_InitialCreate.resx">
+      <DependentUpon>201911242100320_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911251931323_DataMigration.resx">
+      <DependentUpon>201911251931323_DataMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
