@@ -6,8 +6,13 @@
 
 <h2>UserProfile</h2>
 
+@if (TempData["Message"] != null)
+{
+<div class="btn-success"> @TempData["Message"] </div>
+}
+
 <div>
-    <h4>UserModel</h4>
+
     <hr />
     <dl class="dl-horizontal">
 
@@ -63,5 +68,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+ 
 </p>

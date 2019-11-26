@@ -40,6 +40,44 @@ namespace WebApp.Controllers
             return View(userDb);
         }
 
+        //[HttpGet]
+        //public ActionResult EditProfile()
+        //{
+        //    string user = User.Identity.Name;
+        //    UserModel userDb = UserManager.Users.FirstOrDefault(m => m.UserName == user);
+        //    if (userDb == null)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    return View(userDb);
+        //}
+
+        //[HttpPost]
+        //public ActionResult EditProfile(UserModel user)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        UserModel userDb = UserManager.Users.FirstOrDefault(m => m.UserName == user.UserName);
+
+        //        if (userDb != null)
+        //        {
+        //            if (userDb.UserName != user.UserName || userDb.Email != user.Email || userDb.PhoneNumber != user.PhoneNumber)
+        //            {
+        //                using (Db db = new Db())
+        //                {
+        //                    if (db.)
+        //                    {
+
+        //                    }
+        //                }
+        //            }
+        //            UserEditVM userEdit = new UserEditVM { UserName = user.UserName, Email = user.Email, PhoneNumber = user.PhoneNumber };
+        //        }
+        //    }
+        //    return RedirectToAction("Index", "Home");
+        //}
+
         public ActionResult Login(string returnUrl)
         {
             ViewBag.returnUrl = returnUrl;
@@ -154,18 +192,28 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 UserModel userDel = await UserManager.FindByEmailAsync(user.Email);
+                //UserModel userDel = null;
 
                 if (userDel != null)
                 {
-                    IdentityResult result = await UserManager.UpdateAsync(user);
+                    userDel.UserName = user.UserName;
+                    userDel.Email = user.Email;
+                    userDel.PhoneNumber = user.PhoneNumber;
+                    IdentityResult result = await UserManager.UpdateAsync(userDel);
 
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index");
+                        TempData["Message"] = "Profile edited success";
+                        return RedirectToAction("UserProfile");
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Profile does't edit";
+                        return RedirectToAction("UserProfile");
                     }
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("UserProfile");
         }
 
         public ActionResult Index()

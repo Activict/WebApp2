@@ -13,6 +13,20 @@ namespace WebApp.Models
     {
     }
 
+    public class UserEditVM
+    {
+        public UserEditVM() { }
+        public UserEditVM(UserModel model)
+        {
+            UserName = model.UserName;
+            Email = model.Email;
+            PhoneNumber = model.PhoneNumber;
+        }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+    }
+
     public class AppContext : IdentityDbContext<UserModel>
     {
         public AppContext() : base("WebAppDb") { }

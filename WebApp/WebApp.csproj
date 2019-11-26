@@ -267,6 +267,7 @@
     <Content Include="Views\Shop\ProductEdit.cshtml" />
     <Content Include="Views\Account\_UserMenuPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
