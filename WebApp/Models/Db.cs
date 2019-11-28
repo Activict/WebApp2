@@ -14,6 +14,7 @@ namespace WebApp.Models
 
         public DbSet<ShopCategoryDB> ShopCategories { get; set; }
         public DbSet<ShopProductDB> ShopProducts { get; set; }
+        public DbSet<ShopCartDB> ShopCarts { get; set; }
 
         //public static WebAppDb Create()
         //{

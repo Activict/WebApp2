@@ -1,0 +1,5 @@
+﻿@model WebApp.Models.Shop.ShopCartVM
+
+@{string url = "Cart: "+ @Model.AmountProduct +" item - " + @Model.Price + " $";}
+@Html.ActionLink(url, "Index", "Cart", null, new { @class = "nav-link" })
+@*<a href="/Cart/Index">Cart: @Model.AmountProduct item - @Model.Price $</a>*@

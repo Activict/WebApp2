@@ -268,10 +268,14 @@
     <Content Include="Views\Account\_UserMenuPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Shop\ProductDetails.cshtml" />
+    <Content Include="Views\Shop\ProductDelete.cshtml" />
+    <Content Include="Views\Shop\ProductAdd.cshtml" />
+    <Content Include="Views\Cart\_CartPartial.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Cart\" />
     <Folder Include="Views\Roles\" />
   </ItemGroup>
   <ItemGroup>

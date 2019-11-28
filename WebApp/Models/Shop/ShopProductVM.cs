@@ -17,6 +17,7 @@ namespace WebApp.Models.Shop
             Id = model.Id;
             Name = model.Name;
             Price = model.Price;
+            Description = model.Description;
             ShopCategoryId = model.ShopCategoryId;
             ShopCategoryName = model.ShopCategoryName;
             ImageName = model.ImageName;
@@ -27,6 +28,8 @@ namespace WebApp.Models.Shop
         [Required]
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public string Description { get; set; }
+        [DisplayName("Category")]
         public int ShopCategoryId { get; set; }
         [DisplayName("Category")]
         public string ShopCategoryName { get; set; }

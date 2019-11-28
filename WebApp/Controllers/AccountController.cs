@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebApp.Models;
+using WebApp.Models.Shop;
 
 namespace WebApp.Controllers
 {
@@ -100,9 +101,19 @@ namespace WebApp.Controllers
                     ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
+                    Session["UserId"] = user.Id;
 
-                    if (String.IsNullOrEmpty(returnUrl))
+                    if (Session["Cart"] == null)
+                    {
+                        using (Db db = new Db())
+                        {
+                            Session["Cart"] = db.ShopCarts.ToArray().Where(m => m.UserId == user.Id).Select(m => new ShopCartVM(m)).ToList();
+                        }
+                    }
+
+                    if (Session["Cart"] != null)
                         return RedirectToAction("Index", "Home");
+
                     return Redirect(returnUrl);
                 }
             }
@@ -112,6 +123,7 @@ namespace WebApp.Controllers
 
         public ActionResult Logout()
         {
+            Session["Cart"] = Session["UserId"] = null;
             AuthenticationManager.SignOut();
             return RedirectToAction("Login");
         }
@@ -187,7 +199,7 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(UserModel user)
+        public async Task<ActionResult> Edit(UserModel user) 
         {
             if (ModelState.IsValid)
             {

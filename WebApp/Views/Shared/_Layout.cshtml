@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark container fixed-top">
-        <a class="navbar-brand col-md-3" href="#">WebApp</a>
+        <a class="navbar-brand col-md-2" href="#">WebApp</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,10 +34,10 @@
                     </div>
                 </li>
             </ul>
-            
+
             <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             &nbsp;&nbsp;
             <ul class="navbar-nav mr-auto">
@@ -46,14 +46,12 @@
                     <li>
                         @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "navbar-text", style = "text-decoration: none" })
                     </li>
-                    <li class = "navbar-text">
+                    <li class="navbar-text">
                         @Html.Action("UserMenuPartial", "Account")
                     </li>
-                    @*<li>
-                <div class="col-1">
-                    @Html.Action("CartPartial", "Cart")
-                </div>
-            </li>*@
+                    <li class="nav-item">
+                        @Html.Action("CartPartial", "Cart")
+                    </li>
                 }
                 else
                 {
@@ -62,11 +60,11 @@
                     </li>
                     <li class="nav-item">
                         @Html.ActionLink("Login", "Login", "Account", null, new { @class = "active", style = "text-decoration: none" }) &nbsp;
-                    </li> 
-                    <li class="nav-item">
-                        @Html.ActionLink("Register", "Register", "Account", null, new { @class = "active", style = "text-decoration:none"})
                     </li>
 
+                    <li class="nav-item">
+                        @Html.ActionLink("Register", "Register", "Account", null, new { @class = "active", style = "text-decoration:none" })
+                    </li>
                 }
             </ul>
 
@@ -74,12 +72,12 @@
     </nav>
 
 
-    <div class="container body-content">
+    <div class="container body-content" style="margin-top: 30px">
         <div class="row">
 
             @if (ViewBag.Menu != null)
             {
-                <div class="col-md-3 list-group">
+                <div class="col-md-2 list-group">
                     @Html.Action("CategoryPartial", (string)ViewBag.Menu)
                 </div>
             }
