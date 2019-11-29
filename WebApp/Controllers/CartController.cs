@@ -28,11 +28,11 @@ namespace WebApp.Controllers
                 using (Db db = new Db())
                 {
                     ShopProductDB productDb = await db.ShopProducts.FindAsync(id);
+
                     if (productDb != null)
                     {
-                        // add to ShopCartDB and Session Cart
-                        int amountProduct = 0;
-                        bool check = false;
+                        // sdd to Session Cart
+                        bool checkFirst = true;
 
                         var listCart = (List<ShopCartVM>)Session["Cart"];
 
@@ -40,35 +40,43 @@ namespace WebApp.Controllers
                         {
                             for (int i = 0; i < listCart.Count-1; i++)
                             {
-                                if (listCart[i].Id == productDb.Id)
+                                if (listCart[i].ProductId == productDb.Id)
                                 {
-                                    amountProduct = listCart[i].AmountProduct++;
+                                    listCart[i].AmountProduct++;
                                     Session["Cart"] = listCart;
-                                    check = true;
+                                    checkFirst = false;
                                     break;
                                 }
                             }
                         }
-                        ShopCartDB addProduct = db.ShopCarts.Where(m => m.ProductName == productDb.Name && 
-                                                                        m.UserId == (string)Session["UserId"]).FirstOrDefault();
-                        addProduct.AmountProduct++;
-
-                        if (!check)
+                        // add to ShopCartDB
+                        if (checkFirst)
                         {
+                            ShopCartDB addProduct = new ShopCartDB
+                            {
+                                UserId = (string)Session["UserId"],
+                                ProductId = productDb.Id,
+                                ProductName = productDb.Name,
+                                Description = productDb.Description,
+                                Price = productDb.Price,
+                                AmountProduct = 1,
+                                Image = productDb.ImageName
+                            };
+
                             listCart.Add(new ShopCartVM(addProduct));
                             Session["Cart"] = listCart;
-                        }
 
-                        //var temp = Session["Cart"];
-                        if (addProduct.AmountProduct == 1)
-                        {
                             db.ShopCarts.Add(addProduct);
                         }
                         else
                         {
+                            string userId = (string)Session["UserId"];
+                            ShopCartDB addProduct = db.ShopCarts.Where(m => m.ProductName == productDb.Name &&
+                                                                            m.UserId == userId).FirstOrDefault();
+                            addProduct.AmountProduct++;
                             db.Entry(addProduct).State = System.Data.Entity.EntityState.Modified;
                         }
-                        
+                 
                         db.SaveChanges();
                     }
                     else
