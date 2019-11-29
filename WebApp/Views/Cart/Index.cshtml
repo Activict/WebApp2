@@ -12,6 +12,11 @@
 }
 else
 {
+
+    if (ViewBag.MessageInfo != null)
+    {
+        <div class="btn-dark">@ViewBag.MessageInfo</div>
+    }
 <table class="table">
     <tr>
         <th>
@@ -57,9 +62,9 @@ else
                 @Html.DisplayFor(modelItem => item.Total)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                @Html.ActionLink("Delete", "DeleteFromCart", new { id = item.Id })
             </td>
         </tr>
     }

@@ -54,6 +54,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> ProductEdit(int? id)
         {
+            ViewBag.Menu = "Shop";
             if (id == null)
             {
                 return RedirectToAction("Index");
@@ -114,6 +115,8 @@ namespace WebApp.Controllers
 
         public async Task<ActionResult> ProductDetails(int id)
         {
+            ViewBag.Menu = "Shop";
+
             using (Db db = new Db())
             {
                 ShopProductDB productDb = await db.ShopProducts.FindAsync(id);
@@ -129,6 +132,8 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<ActionResult> ProductDelete(int id)
         {
+            ViewBag.Menu = "Shop";
+
             using (Db db = new Db())
             {
                 ShopProductDB productDb = await db.ShopProducts.FindAsync(id);
@@ -165,6 +170,8 @@ namespace WebApp.Controllers
         [HttpGet]
         public ActionResult ProductAdd()
         {
+            ViewBag.Menu = "Shop";
+
             ShopProductVM product = new ShopProductVM();
             using (Db db = new Db())
             {

@@ -38,7 +38,6 @@ namespace WebApp.Models.Shop
         public int AmountProduct { get; set; }
         [Required]
         public decimal Price { get; set; }
-        [Required]
         public string Image { get; set; }
 
         public decimal Total { get { return Price * AmountProduct; } }

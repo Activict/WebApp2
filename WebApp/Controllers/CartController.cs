@@ -38,7 +38,7 @@ namespace WebApp.Controllers
 
                         if (Session["Cart"] != null)
                         {
-                            for (int i = 0; i < listCart.Count-1; i++)
+                            for (int i = 0; i < listCart.Count; i++)
                             {
                                 if (listCart[i].ProductId == productDb.Id)
                                 {
@@ -50,6 +50,8 @@ namespace WebApp.Controllers
                             }
                         }
                         // add to ShopCartDB
+                        string userId = (string)Session["UserId"];
+
                         if (checkFirst)
                         {
                             ShopCartDB addProduct = new ShopCartDB
@@ -63,21 +65,24 @@ namespace WebApp.Controllers
                                 Image = productDb.ImageName
                             };
 
-                            listCart.Add(new ShopCartVM(addProduct));
-                            Session["Cart"] = listCart;
-
                             db.ShopCarts.Add(addProduct);
+                            db.SaveChanges();
+
+                            addProduct = db.ShopCarts.Where(m => m.ProductId == addProduct.ProductId && m.UserId == userId).FirstOrDefault();
+                            if (addProduct != null)
+                            {
+                                listCart.Add(new ShopCartVM(addProduct));
+                                Session["Cart"] = listCart;
+                            }
                         }
                         else
                         {
-                            string userId = (string)Session["UserId"];
                             ShopCartDB addProduct = db.ShopCarts.Where(m => m.ProductName == productDb.Name &&
                                                                             m.UserId == userId).FirstOrDefault();
                             addProduct.AmountProduct++;
                             db.Entry(addProduct).State = System.Data.Entity.EntityState.Modified;
+                            db.SaveChanges();
                         }
-                 
-                        db.SaveChanges();
                     }
                     else
                     {
@@ -87,9 +92,7 @@ namespace WebApp.Controllers
                 }
             }
 
-            //var temp1 = Session["Cart"];
-
-            if (((List<ShopCartVM>)Session["Cart"]).Count == 0 )
+            if (((List<ShopCartVM>)Session["Cart"]).Count == 0)
             {
                 ViewBag.Message = "Cart is empty";
             }
@@ -104,7 +107,7 @@ namespace WebApp.Controllers
             }
 
             ViewBag.TotalPriceCart = total;
-            
+
             return View(cart);
         }
 
@@ -114,7 +117,7 @@ namespace WebApp.Controllers
             {
                 //var user = HttpContext.User.Identity.Name.ToString();
                 UserModel user = UserManager.FindByEmail(HttpContext.User.Identity.Name);
-                
+
                 if (user == null)
                 {
                     return RedirectToAction("Logout", "Account");
@@ -144,7 +147,73 @@ namespace WebApp.Controllers
                 model.Price = 0m;
             }
 
-            return PartialView( "_CartPartial", model);
+            return PartialView("_CartPartial", model);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteFromCart(int? id)
+        {
+            ViewBag.Menu = "Shop";
+
+            if (id == null)
+            {
+
+            }
+            else
+            {
+                using (Db db = new Db())
+                {
+                    ShopCartDB productCartDb = await db.ShopCarts.FindAsync(id);
+
+                    if (productCartDb != null)
+                    {
+                        return View(new ShopCartVM(productCartDb));
+                    }
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteFromCart(ShopCartVM model)
+        {
+
+            using (Db db = new Db())
+            {
+                ShopCartDB modelDb = await db.ShopCarts.FindAsync(model.Id);
+
+                db.ShopCarts.Remove(modelDb);
+                db.SaveChanges();
+
+                ViewBag.MessageInfo = model.ProductName + " is delete";
+
+                modelDb = await db.ShopCarts.FindAsync(model.Id);
+
+                if (modelDb != null)
+                {
+                    ViewBag.MessageInfo = modelDb.ProductName + " is't delete";
+                }
+                else
+                {
+                    var listCart = (List<ShopCartVM>)Session["Cart"];
+
+                    if (Session["Cart"] != null)
+                    {
+                        for (int i = 0; i < listCart.Count; i++)
+                        {
+                            if (listCart[i].Id == model.Id)
+                            {
+                                listCart.RemoveAt(i);
+                                Session["Cart"] = listCart;
+                                break;
+                            }
+                        }
+                    }
+                    //await Index(null);
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }

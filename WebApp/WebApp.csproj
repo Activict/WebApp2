@@ -273,6 +273,7 @@
     <Content Include="Views\Shop\ProductAdd.cshtml" />
     <Content Include="Views\Cart\_CartPartial.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\DeleteFromCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
